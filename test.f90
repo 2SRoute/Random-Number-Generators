@@ -37,7 +37,7 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
 
     open(unit, file = 'uniform_distribution.txt', status = 'replace', position = 'rewind', action = 'write')
     do i = 0, bins - 1 ! writes binned data to a .txt file
-        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", uniform(i)/real(N, kind = srk)*width
+        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", uniform(i)/(real(N, kind = srk)*width)
     end do
     close(unit)
 
