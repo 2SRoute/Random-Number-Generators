@@ -56,4 +56,10 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
         label = int((Xvals(i) - min)/width) + 1
         uniform(label) = uniform(label) + 1
     end do
+
+    open(unit, file = 'normal_distribution.txt', status = 'replace', position = 'rewind', action = 'write')
+    do i = 0, bins - 1
+        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", normal(i + 1)/(real(N, kind = srk)*width)
+    end do
+    close(unit)
 end program
