@@ -15,6 +15,15 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
 
     allocate(Xstats(3)) ! calculates stats of the generated numbers, prints to screen
     Xstats = stats(Xvals, N)
+    print*, "Linear-congruential Algorithm:"
+    print*, "Mean: ", Xstats(1)
+    print*, "Variance: ", Xstats(2)
+    print*, "Standard Error: ", Xstats(3)
+    print*, " "
+    Xvals = box_muller(Xvals, N, Xstats(1), sqrt(Xstats(2))) ! uses the box-muller method to generate numbers
+
+    Xstats = stats(Xvals, N) ! calculates stats, prints to screen
+    print*, "Box-Muller Algorithm:"
     print*, "Mean: ", Xstats(1)
     print*, "Variance: ", Xstats(2)
     print*, "Standard Error: ", Xstats(3)
