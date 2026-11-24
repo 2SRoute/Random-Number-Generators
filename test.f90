@@ -22,8 +22,6 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
     print*, "Mean: ", Xstats(1)
     print*, "Variance: ", Xstats(2)
     print*, "Standard Error: ", Xstats(3)
-    print*, " "
-    Xvals = box_muller(Xvals, N, Xstats(1), sqrt(Xstats(2))) ! uses the box-muller method to generate numbers
 
     min = Xstats(1) - 3.0_srk*sqrt(Xstats(2)) ! minimum, within 3 deviations of the mean
     max = Xstats(1) + 3.0_srk*sqrt(Xstats(2)) ! maximum, within same deviations of mean
@@ -37,11 +35,13 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
 
     open(unit, file = 'uniform_distribution.txt', status = 'replace', position = 'rewind', action = 'write')
     do i = 0, bins - 1 ! writes binned data to a .txt file
-        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", uniform(i)/(real(N, kind = srk)*width)
+        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", uniform(i + 1)/(real(N, kind = srk)*width)
     end do
     close(unit)
 
+    Xvals = box_muller(Xvals, N, Xstats(1), sqrt(Xstats(2))) ! uses the box-muller method to generate numbers
     Xstats = stats(Xvals, N) ! calculates stats, prints to screen
+    print*, " "
     print*, "Box-Muller Algorithm:"
     print*, "Mean: ", Xstats(1)
     print*, "Variance: ", Xstats(2)
