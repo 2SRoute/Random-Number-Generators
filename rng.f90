@@ -26,7 +26,7 @@ function stats(X, N) ! calculates mean, variance, and standard error of an array
     end do
 
     stats(1) = sum/real(N, kind = srk) ! mean
-    stats(2) = (sq_sum/real(N, kind = srk)) - stats(1) ! variance
+    stats(2) = (sq_sum/real(N, kind = srk)) - stats(1)**2 ! variance
     stats(3) = sqrt(stats(2)/real(N, kind = srk)) ! standard error
 end function
 end module
