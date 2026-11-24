@@ -17,4 +17,4 @@ program test
         Y = lin_cong(Y, A, B, M)
         Yvals(i) = Y
     end do
-end program
+end program ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=f2008 rng.o test.f90
