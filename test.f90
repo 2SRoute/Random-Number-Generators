@@ -4,7 +4,7 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
     real(kind = srk), parameter :: A = 1570, B = 2864, M = 2**32 - 1 ! rng parameters
     real(kind = srk) :: X = 2007 ! seeds
     integer, parameter :: N = 10000 ! total number of numbers to generate
-    integer :: i
+    integer :: i, unit = 50
     real(kind = srk), dimension(:), allocatable :: Xvals, Xstats ! storage arrays for holding numbers
     real(kind = srk) :: min, max, width ! parameters for binning data
     integer :: label, bins = 100
@@ -34,6 +34,12 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
         label = int((Xvals(i) - min)/width) + 1 ! bins values, incrementing the bin counter by 1
         uniform(label) = uniform(label) + 1 ! whenever a value falls into the corresponding bin
     end do
+
+    open(unit, file = 'uniform_distribution.txt', status = 'replace', position = 'rewind', action = 'write')
+    do i = 0, bins - 1 ! writes binned data to a .txt file
+        write(unit, fmt = *) (min + (i - 0.5_srk)*width), ", ", uniform(i)/real(N, kind = srk)*width
+    end do
+    close(unit)
 
     Xstats = stats(Xvals, N) ! calculates stats, prints to screen
     print*, "Box-Muller Algorithm:"
