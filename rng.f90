@@ -11,3 +11,4 @@ function lin_cong(X, A, B, M)
 
     lin_cong = mod(A*X + B, M) ! Returns the 'remainder' of the number divided by M
 end function
+end module
