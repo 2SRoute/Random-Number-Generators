@@ -28,6 +28,7 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
     width = (max - min)/real(bins, kind = srk) ! bin width
 
     allocate(uniform(N))
+    uniform = 0
     do i = 1, N
         label = int((Xvals(i) - min)/width) + 1 ! bins values, incrementing the bin counter by 1
         uniform(label) = uniform(label) + 1 ! whenever a value falls into the corresponding bin
@@ -52,9 +53,10 @@ program test ! compile using 'gfortran -g -Wall -fcheck=all -fmax-errors=1 -std=
     width = (max - min)/real(bins, kind = srk)
 
     allocate(normal(N))
+    normal = 0
     do i = 1, N
         label = int((Xvals(i) - min)/width) + 1
-        uniform(label) = uniform(label) + 1
+        normal(label) = normal(label) + 1
     end do
 
     open(unit, file = 'normal_distribution.txt', status = 'replace', position = 'rewind', action = 'write')

@@ -19,3 +19,22 @@ plt.xlabel("Value")
 plt.ylabel("Probability")
 
 plt.show()
+
+x, y = np.loadtxt(
+    fname = 'normal_distribution.txt',
+    delimiter = ',',
+    unpack = True
+)
+
+plt.plot(
+    x,
+    y,
+    color = '#AA00FF',
+    linewidth = 0.67
+)
+
+plt.title("Normal Pseudo-random Number Distribution")
+plt.xlabel("Value")
+plt.ylabel("Probability")
+
+plt.show()
